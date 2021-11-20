@@ -22,17 +22,21 @@ def list_files(path_dir=os.getcwd()):
     sort_list = []
     for key, value in sorted(dct.items(), key=lambda x: x[1]):
         sort_list.append(key)
-    return sort_list
+    return dct, sort_list
 
 def wtite_file(path = os.getcwd()):
     if not os.path.exists(os.path.join(path, 'result.txt')):
         file = open('result.txt', 'w')
         file.close()
     with open(os.path.join(os.getcwd(), 'result.txt'), 'wt') as file:
-        for el in list_files():
+        dct, lst = list_files()
+        for el in lst:
             with open(os.path.join(os.getcwd(), el)) as part_file:
+                file.write(f'Файл {el} \n')
+                file.write(str(dct[el]) + '\n')
                 for f in part_file:
                     file.write(f)
+                file.write('\n')
     return
 
 wtite_file()
