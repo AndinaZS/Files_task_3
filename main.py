@@ -19,18 +19,18 @@ def list_files(path_dir=os.getcwd()):
         if f.endswith('.txt') and f != 'result.txt':
             path = os.path.join(os.getcwd(), f)
             dct[f] = count_str(path)
-    sort_list = []
+    sort_dct = {}
     for key, value in sorted(dct.items(), key=lambda x: x[1]):
-        sort_list.append(key)
-    return dct, sort_list
+        sort_dct[key] = value
+    return sort_dct
 
 def wtite_file(path = os.getcwd()):
     if not os.path.exists(os.path.join(path, 'result.txt')):
         file = open('result.txt', 'w')
         file.close()
     with open(os.path.join(os.getcwd(), 'result.txt'), 'wt') as file:
-        dct, lst = list_files()
-        for el in lst:
+        dct = list_files()
+        for el in dct:
             with open(os.path.join(os.getcwd(), el)) as part_file:
                 file.write(f'Файл {el} \n')
                 file.write(str(dct[el]) + '\n')
